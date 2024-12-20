@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 
 /*
   Function Declarations for builtin shell commands:
@@ -108,7 +109,11 @@ int lsh_launch(char **args)
   if (pid == 0) {
     // Child process
     if (execvp(args[0], args) == -1) {
-      fprintf(stderr, "lsh: command not found: %s\n", args[0]);
+      if (errno == ENOENT) {
+      	fprintf(stderr, "lsh: command not found: %s\n", args[0]);
+      } else {
+      	perror("jsh");
+      }
       exit(EXIT_FAILURE);
     }
     exit(EXIT_FAILURE);
