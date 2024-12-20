@@ -112,7 +112,7 @@ int lsh_launch(char **args)
       if (errno == ENOENT) {
       	fprintf(stderr, "lsh: command not found: %s\n", args[0]);
       } else {
-      	perror("jsh");
+      	perror("lsh");
       }
       exit(EXIT_FAILURE);
     }
